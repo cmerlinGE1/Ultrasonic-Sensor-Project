@@ -1,0 +1,122 @@
+/*
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: avr-gcc.exe build active file",
+			"command": "C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"-mmcu=atmega2560",
+				""
+			],
+			"options": {
+				"cwd": "C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe"
+		},
+		{
+			"type": "cppbuild",
+			"label": "C/C++: avr-gcc.exe build active file",
+			"command": "C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"-mmcu=atmega2560",
+				""
+			],
+			"options": {
+				"cwd": "C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe"
+		},
+		{
+			"type": "cppbuild",
+			"label": "C/C++: avr-gcc.exe build active file",
+			"command": "C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"-mmcu=atmega2560",
+				""
+			],
+			"options": {
+				"cwd": "C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe"
+		}
+	]
+}
+*/
+
+{
+    "version": "2.0.0",
+    "tasks": [
+		{
+			"type": "PlatformIO",
+			"task": "Build",
+			"problemMatcher": [
+				"$platformio"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"label": "PlatformIO: Build"
+		},
+		{
+			"type": "PlatformIO",
+			"task": "Upload",
+			"problemMatcher": [
+				"$platformio"
+			],
+			"group": "build",
+			"label": "PlatformIO: Upload"
+		},
+		{
+			"type": "cppbuild",
+			"label": "C/C++: avr-gcc.exe build active file",
+			"command": "C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"-mmcu=atmega2560",
+				""
+			],
+			"options": {
+				"cwd": "C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "compiler: C:/Users/FR10010395/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe"
+		}
+	]
+}
