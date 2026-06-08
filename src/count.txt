@@ -1,0 +1,91 @@
+#include <Arduino.h>
+
+// Détection de chûte de colis avec 2 capteur HC-SR04 
+// ==================================================
+
+// Définition des broches
+
+const int trigPin2 = 8;  // Broche TRIG du capteur 2
+const int echoPin2 = 9; // Broche ECHO du capteur 2
+const int trigPin1 = 10;  // Broche TRIG du capteur 1
+const int echoPin1 = 11; // Broche ECHO du capteur 1
+
+// Variables
+long duration;  // Durée de l'impulsion en microsecondes
+int distance;   // Distance calculée en cm
+int distanceIni1 = 53; // Distance initiale du capteur 1 (trouvé empiriquement)
+int distanceIni2 = 58; // Distance initiale du capteur 2
+int cpt = 0; // Compteur de colis détectés pour affichage
+
+int lectureDistance(int trigPin, int echoPin) {
+  // Génération d'une impulsion de 10µs sur TRIG
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Lecture de la durée de l'impulsion sur ECHO
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Calcul de la distance en cm
+  // Vitesse du son = 340 m/s = 0.034 cm/µs
+  // Distance = (durée * vitesse) / 2
+  distance = duration * 0.034 / 2;
+  
+  return distance;
+}
+
+void setup() {
+  // Initialisation de la communication série
+  Serial.begin(9600);
+  
+  // Configuration des broches
+  pinMode(trigPin1, OUTPUT);
+  pinMode(echoPin1, INPUT);
+  pinMode(trigPin2, OUTPUT);
+  pinMode(echoPin2, INPUT);
+  
+  // Mise à 0 de la broche TRIG
+  digitalWrite(trigPin1, LOW);
+  digitalWrite(trigPin2, LOW);
+  
+  Serial.println("Capteur HC-SR04 - Test de distance");
+  Serial.println("===================================");
+}
+
+void loop() {
+  // Lecture de la distance du capteur 1
+  distance = lectureDistance(trigPin1, echoPin1);
+  
+  int detection1 = distanceIni1 - distance; // Calcul du seuil de détection 1
+
+  if(detection1 > 1) { // Seuil de détection pour détecter un colis
+    Serial.print(cpt);
+    Serial.println(" - Colis détecté !");
+    Serial.print("d = ");
+    Serial.print(distance);
+    Serial.println(" cm");
+    cpt++;
+  }
+  
+  // Attente avant la prochaine mesure
+  delay(10);
+
+  // Lecture de la distance du capteur 2
+  distance = lectureDistance(trigPin2, echoPin2);
+  
+  int detection2 = distanceIni2 - distance; // Calcul du seuil de détection 2
+
+  if(detection2 > 5) { // Seuil de détection pour détecter un colis
+    Serial.print(cpt);
+    Serial.println(" - Colis détecté !");
+    Serial.print("d = ");
+    Serial.print(distance);
+    Serial.println(" cm");
+    cpt++;
+  }
+  
+  // Attente avant la prochaine mesure
+  delay(10);
+}

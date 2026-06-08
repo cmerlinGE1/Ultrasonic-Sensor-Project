@@ -3,9 +3,6 @@
 // Lecture de distance avec 2 capteurs HC-SR04
 // ===========================================
 
-// Configuration du test : 1 = capteur 1, 2 = capteur 2
-#define TEST 2
-
 // Définition des broches
 const int trigPin1 = 10;  // Broche TRIG du capteur 1
 const int echoPin1 = 11; // Broche ECHO du capteur 1
@@ -13,10 +10,14 @@ const int trigPin2 = 8;  // Broche TRIG du capteur 2
 const int echoPin2 = 9; // Broche ECHO du capteur 2
 
 // Variables
-long duration;  // Durée de l'impulsion en microsecondes
-int distance;   // Distance calculée en cm
+int distance1;   // Distance calculée en cm
+int distance2;   // Distance calculée en cm
 
 int lectureDistance(int trigPin, int echoPin) {
+
+  long duration;  // Durée de l'impulsion en microsecondes
+  int distance;   // Distance calculée en cm
+
   // Génération d'une impulsion de 10µs sur TRIG
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -54,45 +55,22 @@ void setup() {
 }
 
 void loop() {
-  //#if TEST == 1
   // Lecture de la distance du capteur 1
-  unsigned long before_mes = millis();
-  distance = lectureDistance(trigPin1, echoPin1);
-  unsigned long after_mes = millis();
-
+  distance1 = lectureDistance(trigPin1, echoPin1);
+  distance2 = lectureDistance(trigPin2, echoPin2);
+  
   // Affichage de la distance sur le terminal
   Serial.print("d1 = ");
-  Serial.print(distance);
+  Serial.print(distance1);
+  Serial.println(" cm");
+  Serial.print("d2 = ");
+  Serial.print(distance2);
   Serial.println(" cm");
 
-  if(distance < 51) {
-    Serial.println("Obstacle détecté à moins de 52 cm !");
-    delay(2); // tempo pour éviter la détection multiple d'un colis
-  }
-
-  // détection d'un temps de mesure anormalement long (bug du capteur)
-  if((after_mes - before_mes) > 5){
-    Serial.print("Temps moyen de mesure : ");
-    Serial.print(after_mes - before_mes);
-    Serial.println(" ms");
-  }
-
-  delay(12); // délai idéal pour éviter de recevoir les echos d'une mesure précédente et suffisant pour ne pas manquer un colis
-
-  //#elif TEST == 2
-  // Lecture de la distance du capteur 2
-  distance = lectureDistance(trigPin2, echoPin2);
-  
-  // Affichage de la distance sur le terminal
-  Serial.print("d2 = ");  
-  Serial.print(distance);
-  Serial.println(" cm");
-
-  if(distance < 55) {
-    Serial.println("Obstacle détecté à moins de 56 cm !");
-    delay(2); // tempo pour éviter la détection multiple d'un colis
+  if(distance1 < 50 || distance2 < 48) {
+    Serial.println("Colis détecté !");
+    delay(2);
   }
   
-  delay(12); // délai idéal pour éviter de recevoir les echos d'une mesure précédente et suffisant pour ne pas manquer un colis
-  //#endif
+  delay(10);
 }
